@@ -3,6 +3,10 @@ object knightRider {
 	method peso() = 500
 	
 	method peligrosidad() = 10
+	
+	method bulto() = 1
+	
+	method esCargado() {}
 }
 
 object bumblebee {
@@ -21,6 +25,10 @@ object bumblebee {
 	method transformar() {
 		estaTransformado = not estaTransformado
 	}
+	
+	method bulto() = 2
+	
+	method esCargado() { self.estaTransformado(false) }
 }
 
 object paqueteLadrillos{
@@ -29,6 +37,18 @@ object paqueteLadrillos{
 	method peso() = cantLadrillos * 2
 	
 	method peligrosidad() = 2
+	
+	method bulto() {
+		if (cantLadrillos >= 1 and cantLadrillos <= 100) {
+			return 1
+		} else if(cantLadrillos > 100 and cantLadrillos <= 300) {
+			return 2
+		} else {
+			return 3
+		}
+	}
+	
+	method esCargado() {cantLadrillos += 12}
 }
 
 
@@ -36,6 +56,10 @@ object arena {
 	var property peso
 	
 	method peligrosidad() = 1
+	
+	method bulto() = 1
+	
+	method esCargado() { peso += 20 }
 }
 
 object bateriaAntiaerea {
@@ -60,6 +84,16 @@ object bateriaAntiaerea {
 	method cambiarCargaMisiles() {
 		estaCargada = not estaCargada
 	}
+	
+	method bulto() {
+		if (estaCargada) {
+			return 2
+		} else {
+			return 1
+		}
+	}
+	
+	method esCargado() { estaCargada = true }
 }
 
 object contenedorPortuario {
@@ -86,12 +120,22 @@ object contenedorPortuario {
 	method descargarContenido(cosa) {
 		contenido.remove(cosa)
 	}
+	
+	method bulto() = 1 + self.bultoDeContenido()
+	
+	method bultoDeContenido() = contenido.sum( { c => c.bulto() } )
+	
+	method esCargado() {contenido.forEach( { c => c.esCargado() } ) }
 }
 
 object residuosRadioactivos {
 	var property peso
 	
 	method peligrosidad() = 200
+	
+	method bulto() = 1
+	
+	method esCargado() { peso += 15 }
 }
 
 object embalajeSeguridad {
@@ -100,6 +144,10 @@ object embalajeSeguridad {
 	method peso() = objetoEmbalado.peso()
 	
 	method peligrosidad() = objetoEmbalado.peligrosidad() * 0.5
+	
+	method bulto() = 2
+	
+	method esCargado() {}
 }
 
 

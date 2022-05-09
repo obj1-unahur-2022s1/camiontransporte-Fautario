@@ -1,0 +1,24 @@
+import camion2.*
+import cosas2.*
+
+
+test "Test de bulto y consecuencia de carga" {
+
+	bumblebee.estaTransformado(true)
+	arena.peso(150)
+	bateriaAntiaerea.estaCargada(false)
+	paqueteLadrillos.cantLadrillos(80)
+	embalajeSeguridad.objetoEmbalado(paqueteLadrillos)
+	
+	camion.cargar(bumblebee)
+	camion.cargar(arena)
+	camion.cargar(bateriaAntiaerea)
+	camion.cargar(embalajeSeguridad)
+	
+	assert.equals(7, camion.totalBultos())
+	
+	assert.that(not bumblebee.estaTransformado())
+	assert.equals(170, arena.peso())
+	assert.that(bateriaAntiaerea.estaCargada())
+	assert.equals(80, paqueteLadrillos.cantLadrillos())
+}

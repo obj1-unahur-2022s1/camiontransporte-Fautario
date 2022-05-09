@@ -1,2 +1,50 @@
 import camion.*
 import cosas.*
+
+test "Paquete de ladrillos" {
+	
+	paqueteLadrillos.cantLadrillos(50)
+	
+	assert.equals(100, paqueteLadrillos.peso())
+	assert.equals(2, paqueteLadrillos.peligrosidad())
+}
+
+test "Bateria Antiaerea" {
+	
+	bateriaAntiaerea.estaCargada(true)
+	
+	assert.that(bateriaAntiaerea.estaCargada())
+	assert.equals(300, bateriaAntiaerea.peso())
+	assert.equals(100, bateriaAntiaerea.peligrosidad())
+	
+	bateriaAntiaerea.cambiarCargaMisiles()
+	
+	assert.that(not bateriaAntiaerea.estaCargada())
+	assert.equals(200, bateriaAntiaerea.peso())
+	assert.equals(0, bateriaAntiaerea.peligrosidad())
+}
+
+test "Embalaje de seguridad" {
+	
+	residuosRadioactivos.peso(30)
+	embalajeSeguridad.objetoEmbalado(residuosRadioactivos)
+	
+	assert.equals(residuosRadioactivos, embalajeSeguridad.objetoEmbalado())
+	assert.equals(30, embalajeSeguridad.objetoEmbalado().peso())
+	assert.equals(100, embalajeSeguridad.peligrosidad())
+}
+
+test "Contenedor portuario" {
+	
+	bumblebee.estaTransformado(true)
+	bateriaAntiaerea.estaCargada(true)
+	paqueteLadrillos.cantLadrillos(30)
+	
+	contenedorPortuario.cargarContenido(bumblebee)
+	contenedorPortuario.cargarContenido(bateriaAntiaerea)
+	contenedorPortuario.cargarContenido(paqueteLadrillos)
+	
+	assert.equals(1260, contenedorPortuario.peso())
+	assert.equals(100, contenedorPortuario.peligrosidad())
+	assert.equals(bateriaAntiaerea, contenedorPortuario.objetoMasPeligroso())
+}

@@ -5,7 +5,10 @@ object camion {
 	var tara = 1000
 	var pesoMaximo = 2000
 	
-	method cargar(cosa) { carga.add(cosa) }
+	method cargar(cosa) { 
+		cosa.esCargado()
+		carga.add(cosa)
+	}
 	
 	method descargar(cosa) { carga.remove(cosa) }
 	
@@ -36,4 +39,6 @@ object camion {
 	method cosaMasPesada() = carga.max( { c => c.peso() } )
 	
 	method pesos() = carga.map( { c => c.peso() } )
+	
+	method totalBultos() = carga.sum( { c => c.bulto() } )
 }
