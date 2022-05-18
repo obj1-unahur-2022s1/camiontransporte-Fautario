@@ -1,7 +1,7 @@
 import camion2.*
 import cosas2.*
 
-
+/* el test esta muy bien */
 test "Test de bulto y consecuencia de carga" {
 
 	bumblebee.estaTransformado(true)

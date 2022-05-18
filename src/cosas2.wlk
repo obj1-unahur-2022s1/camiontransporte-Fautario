@@ -1,3 +1,8 @@
+/*
+ * Revisar: solo 1 comentario. Recordá que podes usar el between.
+ * El reto esto todo ok
+ */
+
 object knightRider {
 	
 	method peso() = 500
@@ -41,6 +46,7 @@ object paqueteLadrillos{
 	method bulto() {
 		if (cantLadrillos >= 1 and cantLadrillos <= 100) {
 			return 1
+		/*Recorda que podes usar el between */
 		} else if(cantLadrillos > 100 and cantLadrillos <= 300) {
 			return 2
 		} else {

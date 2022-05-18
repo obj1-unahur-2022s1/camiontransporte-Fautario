@@ -1,3 +1,7 @@
+/*
+ * Revisar algunos comentarios que te deje en el codigo.
+ */
+
 import cosas.*
 
 object camion {
@@ -16,6 +20,7 @@ object camion {
 	
 	method hayAlgunoQuePesa(peso) = carga.any( { c => c.peso() == peso } )
 	
+	/* Ojo que findOrElse debería retornar siempre una cosa, no un String por el else */
 	method elDeNivel(nivel) {
 		return carga.findOrElse( { c => c.peligrosidad() == nivel} , { "No hay elemento de esa peligrosidad" } )
 	}
@@ -28,12 +33,15 @@ object camion {
 	
 	method objetosQueSuperanPeligrosidad(nivel) = carga.filter( { c => c.peligrosidad() > nivel } )
 	
-	method objetosMasPeligrososQue(cosa) = carga.filter( { c => c.peligrosidad() > cosa.peligrosidad() } )
+	/*Acá podias reutilizar el método objetosQueSuperanPeligrosidad(nivel) */
+	//method objetosMasPeligrososQue(cosa) = carga.filter( { c => c.peligrosidad() > cosa.peligrosidad() } )
+	method objetosMasPeligrososQue(cosa) = self.objetosQueSuperanPeligrosidad(cosa.peligrosidad())
 	
 	method puedeCircularEnRuta(nivelMaximoPeligrosidad) {
 		return not self.excedidoDePeso() and self.objetosQueSuperanPeligrosidad(nivelMaximoPeligrosidad).isEmpty()
 	}
 	
+	/* Podes usar el between */
 	method tieneAlgoQuePesaEntre(min, max) = carga.any( { c => c.peso() > min and c.peso() < max } )
 	
 	method cosaMasPesada() = carga.max( { c => c.peso() } )
